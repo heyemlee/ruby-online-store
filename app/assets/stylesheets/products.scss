@@ -1,0 +1,162 @@
+.search-form {
+  background: #f8f9fa;
+  padding: 1.5em;
+  border-radius: 8px;
+  margin-bottom: 2em;
+
+  .search-row {
+    display: flex;
+    gap: 1em;
+    align-items: flex-end;
+    margin-bottom: 1em;
+
+    .form-group {
+      flex: 1;
+
+      .search-input {
+        width: 100%;
+        padding: 0.8em;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+
+        &:focus {
+          outline: none;
+          border-color: #3498db;
+          box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+      }
+    }
+
+    .price-range {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      .price-input {
+        width: 120px;
+        padding: 0.8em;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    }
+
+    .category-select {
+      width: 200px;
+      padding: 0.8em;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+    }
+
+    .search-button {
+      padding: 0.8em 2em;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #2980b9;
+      }
+    }
+  }
+
+  .search-filters {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+
+    label {
+      margin-left: 0.5em;
+      color: #666;
+    }
+  }
+}
+
+.search-results {
+  background: #e1f5fe;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 2em;
+
+  h2 {
+    color: #0277bd;
+    margin: 0;
+    font-size: 1.2em;
+  }
+
+  p {
+    color: #01579b;
+    margin: 0.5em 0 0;
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2em;
+  padding: 2em 0;
+
+  .product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .product-info {
+      padding: 1.5em;
+
+      h2 {
+        margin: 0 0 0.5em;
+        font-size: 1.2em;
+        
+        a {
+          color: $text-color;
+          text-decoration: none;
+          
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .description {
+        color: #666;
+        margin-bottom: 1em;
+        font-size: 0.9em;
+      }
+
+      .price {
+        color: $primary-color;
+        font-size: 1.2em;
+        font-weight: 600;
+        margin-bottom: 1em;
+      }
+
+      .actions {
+        display: flex;
+        gap: 0.5em;
+      }
+    }
+  }
+} 

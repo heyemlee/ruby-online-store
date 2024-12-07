@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <% if notice %>
+    <aside class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-fade-in mb-6" role="alert">
+      <%= notice %>
+    </aside>
+  <% end %>
+
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-gray-100 px-6 py-4 border-b border-gray-200">
+      <h1 class="text-2xl font-bold text-gray-800">
+        <i class="fas fa-shopping-cart text-blue-500 mr-3"></i> 
+        Shopping Cart
+      </h1>
+    </div>
+
+    <% if @cart.line_items.empty? %>
+      <div class="text-center py-16">
+        <i class="fas fa-shopping-basket text-6xl text-gray-300 mb-4"></i>
+        <p class="text-xl text-gray-600 mb-6">Your shopping cart is empty</p>
+        <%= link_to 'Continue Shopping', store_index_path, 
+            class: 'inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300' %>
+      </div>
+    <% else %>
+      <div class="p-6">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b">
+              <th class="pb-3 text-gray-600">Product Information</th>
+              <th class="pb-3 text-gray-600">Unit Price</th>
+              <th class="pb-3 text-gray-600">Quantity</th>
+              <th class="pb-3 text-gray-600">Subtotal</th>
+              <th class="pb-3 text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.line_items.each do |line_item| %>
+              <tr class="border-b hover:bg-gray-50 transition">
+                <td class="py-4">
+                  <div class="flex items-center">
+                    <% if line_item.product.image_url.present? %>
+                      <%= image_tag line_item.product.image_url, 
+                          class: 'w-16 h-16 object-cover rounded-lg mr-4',
+                          alt: line_item.product.name %>
+                    <% end %>
+                    <span class="font-medium text-gray-800"><%= line_item.product.name %></span>
+                  </div>
+                </td>
+                <td class="text-gray-700"><%= number_to_currency(line_item.product.price) %></td>
+                <td>
+                  <%= form_with(model: line_item, local: true) do |form| %>
+                    <%= form.number_field :quantity, 
+                        value: line_item.quantity, 
+                        min: 1,
+                        onchange: 'this.form.submit()', 
+                        class: 'w-16 text-center border rounded-md py-1 px-2 text-gray-700 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500' %>
+                  <% end %>
+                </td>
+                <td class="font-semibold text-gray-800"><%= number_to_currency(line_item.total_price) %></td>
+                <td>
+                  <%= button_to line_item, method: :delete, 
+                      data: { confirm: 'Are you sure you want to remove this item?' }, 
+                      class: 'text-red-500 hover:text-red-700 transition' do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="mt-8 flex justify-between items-center">
+          <div class="text-2xl font-bold text-gray-800">
+            Total: <%= number_to_currency(@cart.total_price) %>
+          </div>
+          <div class="space-x-4">
+            <%= button_to 'Empty Cart', @cart, method: :delete,
+                data: { confirm: 'Are you sure you want to empty the cart?' },
+                class: 'bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition' %>
+            <%= button_to 'Checkout', new_order_path, method: :get,
+                class: 'bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+</body>
+</html>

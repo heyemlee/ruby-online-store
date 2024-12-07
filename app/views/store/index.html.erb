@@ -1,0 +1,52 @@
+<% if notice %>
+  <aside id="notice"><%= notice %></aside>
+<% end %>
+
+<div class="store-header">
+  <h1>Products</h1>
+  
+  <div class="search-form">
+    <%= form_tag store_index_path, method: :get do %>
+      <%= text_field_tag :query, params[:query], 
+          placeholder: "Search for products...", 
+          class: "search-input" %>
+      <%= button_tag type: 'submit', class: "search-button" do %>
+        <i class="fas fa-search"></i> Search
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% if params[:query].present? %>
+  <div class="search-results">
+    <p><i class="fas fa-search"></i> Found <%= pluralize(@products.count, 'product') %> for "<%= params[:query] %>"</p>
+  </div>
+<% end %>
+
+<div class="catalog">
+  <% @products.each do |product| %>
+    <div class="product">
+      <%= link_to product_path(product) do %>
+        <div class="product-image">
+          <% if product.image_url.present? %>
+            <%= image_tag product.image_url %>
+          <% else %>
+            <div class="placeholder-image">
+              <i class="fas fa-image"></i>
+            </div>
+          <% end %>
+        </div>
+        <h2><%= product.name %></h2>
+        <p class="description"><%= truncate(product.description, length: 80) %></p>
+        <div class="price">
+          <span class="amount"><%= number_to_currency(product.price) %></span>
+          <%= button_to line_items_path(product_id: product), 
+              remote: true,
+              class: 'add-to-cart' do %>
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,73 @@
+<% content_for :title, "New order" %>
+
+<div class="order-form-container">
+  <div class="order-form">
+    <h1>Complete Your Order</h1>
+
+    <%= form_with(model: @order, local: true, class: 'checkout-form') do |form| %>
+      <% if @order.errors.any? %>
+        <div class="error-messages">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+          <ul>
+            <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-sections">
+        <div class="order-summary-section">
+          <h2>Order Summary</h2>
+          <div class="order-items">
+            <% @cart.line_items.each do |item| %>
+              <div class="order-item">
+                <div class="item-details">
+                  <span class="item-name"><%= item.product.name %></span>
+                  <span class="item-quantity">× <%= item.quantity %></span>
+                </div>
+                <span class="item-price"><%= number_to_currency(item.total_price) %></span>
+              </div>
+            <% end %>
+            <div class="order-total">
+              <span>Total</span>
+              <span class="total-price"><%= number_to_currency(@cart.total_price) %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="customer-details-section">
+          <h2>Customer Details</h2>
+          
+          <div class="form-group">
+            <%= form.label :name, 'Full Name' %>
+            <%= form.text_field :name, class: 'form-control', placeholder: 'Enter your full name' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :email, 'Email Address' %>
+            <%= form.email_field :email, class: 'form-control', placeholder: 'your@email.com' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :address, 'Shipping Address' %>
+            <%= form.text_area :address, rows: 3, class: 'form-control', 
+                placeholder: 'Enter your complete shipping address' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :payment_type, 'Payment Method' %>
+            <%= form.select :payment_type, Order::PAYMENT_TYPES, 
+                { prompt: 'Select a payment method' }, 
+                { class: 'form-control' } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit 'Place Order', class: 'button primary' %>
+        <%= link_to 'Back to Cart', @cart, class: 'button secondary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

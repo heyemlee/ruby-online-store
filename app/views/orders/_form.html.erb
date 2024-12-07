@@ -1,0 +1,27 @@
+<%= form_with(model: order, local: true, class: 'order-form') do |form| %>
+  <% if order.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <ul>
+        <% order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :address, 'Shipping Address' %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :payment_type, 'Payment Method' %>
+    <%= form.select :payment_type, ['Alipay', 'WeChat Pay', 'Bank Card'], 
+        prompt: 'Please select a payment method' %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit 'Submit Order', class: 'button' %>
+  </div>
+<% end %>

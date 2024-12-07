@@ -1,0 +1,45 @@
+<div class="orders-index">
+  <% if notice %>
+    <aside class="notice"><%= notice %></aside>
+  <% end %>
+
+  <div class="header">
+    <h1>My Orders</h1>
+  </div>
+
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Time</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td>
+            <span class="status <%= order.status %>">
+              <%= t(".status.#{order.status}") %>
+            </span>
+          </td>
+          <td class="price"><%= number_to_currency(order.total_price) %></td>
+          <td class="actions">
+            <%= link_to 'View Details', order %>
+            <% if order.pending? %>
+              <%= link_to 'Cancel Order', 
+                  order_path(order, order: { status: 'cancelled' }),
+                  method: :patch,
+                  data: { confirm: 'Are you sure you want to cancel the order?' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

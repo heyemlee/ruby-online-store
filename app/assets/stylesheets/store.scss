@@ -1,0 +1,46 @@
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    
+    .product {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      
+      img {
+        width: 100%;
+        height: auto;
+      }
+      
+      h2 {
+        margin: 10px 0;
+        font-size: 1.2em;
+      }
+      
+      .description {
+        color: #666;
+      }
+      
+      .price {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 10px 0;
+      }
+      
+      .add-to-cart {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        
+        &:hover {
+          background: #2980b9;
+        }
+      }
+    }
+  }

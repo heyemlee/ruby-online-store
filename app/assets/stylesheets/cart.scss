@@ -1,0 +1,154 @@
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  .cart-header {
+    margin-bottom: 30px;
+    h1 {
+      font-size: 2em;
+      color: #333;
+      i { margin-right: 10px; }
+    }
+  }
+}
+
+.empty-cart-container {
+  text-align: center;
+  padding: 50px 0;
+  
+  .empty-cart-icon {
+    font-size: 5em;
+    color: #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .empty-cart {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+  }
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  
+  th {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+  }
+  
+  td {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+  }
+  
+  .product-info {
+    .product-details {
+      display: flex;
+      align-items: center;
+      
+      .product-thumb {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 4px;
+      }
+      
+      .product-name {
+        font-weight: 500;
+        color: #333;
+      }
+    }
+  }
+  
+  .quantity-form {
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      
+      &:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+      }
+      
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .price {
+    font-weight: 500;
+    color: #e83e8c;
+    
+    &.subtotal {
+      font-size: 1.1em;
+    }
+  }
+  
+  .remove-item-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 5px;
+    
+    &:hover {
+      color: darken(#dc3545, 10%);
+    }
+  }
+}
+
+.cart-summary {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  
+  .summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .total-amount {
+      font-size: 1.2em;
+      
+      .total {
+        font-weight: bold;
+        color: #e83e8c;
+        margin-left: 10px;
+      }
+    }
+    
+    .cart-actions {
+      display: flex;
+      gap: 10px;
+      
+      .checkout-btn {
+        font-size: 1.1em;
+        padding: 10px 30px;
+      }
+    }
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+} 

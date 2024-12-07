@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --border-radius: 12px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --hover-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header.main {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .header-actions a:hover {
+            color: var(--primary-color);
+        }
+
+        .header-actions a i {
+            font-size: 1.2rem;
+        }
+
+        main {
+            padding: 30px 0;
+        }
+
+        .notice {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notice i {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* 搜索栏样式 */
+        .store-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .store-header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-button {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* 产品目录样式 */
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .product {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .product a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 3rem;
+        }
+
+        .product h2 {
+            font-size: 1.2rem;
+            margin: 15px;
+            color: var(--text-color);
+        }
+
+        .product .description {
+            padding: 0 15px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .product .price {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+        }
+
+        .product .price .amount {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .add-to-cart {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-to-cart i {
+            font-size: 1.1rem;
+        }
+
+        .add-to-cart:hover {
+            background-color: #27ae60;
+        }
+
+        .search-results {
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            color: #666;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .store-header h1 {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+
+            .product {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        /* 添加滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header class="main">
+        <div class="header-content">
+            <h1 class="site-title">
+                <%= link_to 'Online Store', store_index_path, style: 'color: inherit; text-decoration: none;' %>
+            </h1>
+            
+            <div class="header-actions">
+                <% if session[:user_id] %>
+                    <%= link_to orders_path do %>
+                        <i class="fas fa-clipboard-list"></i> My Orders
+                    <% end %>
+                    <%= link_to logout_path do %>
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    <% end %>
+                <% else %>
+                    <%= link_to register_path do %>
+                        <i class="fas fa-user-plus"></i> Register
+                    <% end %>
+                    <%= link_to login_path do %>
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    <% end %>
+                <% end %>
+                
+                <% if @cart %>
+                    <%= link_to cart_path(@cart) do %>
+                        <i class="fas fa-shopping-cart"></i> Cart
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <% if notice %>
+            <div id="notice" class="notice fade-out">
+                <%= notice %>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const notice = document.getElementById('notice');
+                    if (notice) {
+                        setTimeout(function() {
+                            notice.style.display = 'none';
+                        }, 2000);
+                    }
+                });
+            </script>
+        <% end %>
+        <%= yield %>
+    </main>
+</body>
+</html>

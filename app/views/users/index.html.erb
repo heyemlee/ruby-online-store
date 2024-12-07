@@ -1,0 +1,34 @@
+<div class="users-index">
+  <% if notice %>
+    <aside class="notice"><%= notice %></aside>
+  <% end %>
+
+  <div class="header">
+    <h1>User Management</h1>
+    <%= link_to 'Create New User', new_user_path, class: 'button' %>
+  </div>
+
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Registration Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td class="actions">
+            <%= link_to 'Edit', edit_user_path(user) %>
+            <%= link_to 'Delete', user, method: :delete,
+                data: { confirm: 'Are you sure you want to delete this user?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

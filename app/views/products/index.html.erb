@@ -1,0 +1,48 @@
+<div class="products-index">
+  <% if notice %>
+    <aside class="notice"><%= notice %></aside>
+  <% end %>
+
+  <div class="header">
+    <h1>Products</h1>
+    <% if session[:user_id] && User.find(session[:user_id]).admin? %>
+      <%= link_to 'New Product', new_product_path, class: 'button' %>
+    <% end %>
+  </div>
+
+  <%= render 'search_form' %>
+
+  <% if @query.present? %>
+    <div class="search-results">
+      <h2>Search Results for "<%= @query %>"</h2>
+      <p>Found <%= pluralize(@products.count, 'product') %></p>
+    </div>
+  <% end %>
+
+  <div class="products-grid">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <div class="product-image">
+          <%= image_tag(asset_path(product.image)) if product.image.present? %>
+        </div>
+        <div class="product-info">
+          <h2><%= link_to product.name, product %></h2>
+          <p class="description"><%= truncate(product.description, length: 100) %></p>
+          <div class="price"><%= number_to_currency(product.price) %></div>
+          <div class="actions">
+            <%= button_to 'Add to Cart', 
+                line_items_path(product_id: product),
+                class: 'button add-to-cart' %>
+            <% if session[:user_id] && User.find(session[:user_id]).admin? %>
+              <%= link_to 'Edit', edit_product_path(product), class: 'button edit' %>
+              <%= link_to 'Delete', product, 
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button delete' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

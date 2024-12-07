@@ -1,0 +1,35 @@
+<div class="product-detail">
+  <% if notice %>
+    <aside class="notice"><%= notice %></aside>
+  <% end %>
+
+  <div class="product-image">
+    <%= image_tag @product.image_url if @product.image_url.present? %>
+  </div>
+
+  <div class="product-info">
+    <h1><%= @product.name %></h1>
+    
+    <div class="price">
+      <%= number_to_currency(@product.price) %>
+    </div>
+
+    <div class="description">
+      <%= @product.description %>
+    </div>
+
+    <div class="actions">
+      <%= button_to 'Add to Cart', 
+          line_items_path(product_id: @product),
+          remote: true,
+          class: 'button add-to-cart' %>
+    </div>
+  </div>
+
+  <% if session[:user_id] && User.find(session[:user_id]).admin? %>
+    <div class="admin-actions">
+      <%= link_to 'Edit', edit_product_path(@product), class: 'button' %>
+      <%= link_to 'Back to List', products_path, class: 'button' %>
+    </div>
+  <% end %>
+</div>

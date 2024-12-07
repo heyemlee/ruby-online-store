@@ -1,0 +1,69 @@
+<div class="order-detail">
+  <% if notice %>
+    <aside class="notice"><%= notice %></aside>
+  <% end %>
+
+  <h1>Order Details</h1>
+
+  <div class="order-info">
+    <div class="info-group">
+      <label>Order Number:</label>
+      <%= @order.id %>
+    </div>
+
+    <div class="info-group">
+      <label>Order Time:</label>
+      <%= @order.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </div>
+
+    <div class="info-group">
+      <label>Order Status:</label>
+      <span class="status <%= @order.status %>">
+        <%= t(".status.#{@order.status}") %>
+      </span>
+    </div>
+
+    <div class="info-group">
+      <label>Shipping Address:</label>
+      <%= @order.address %>
+    </div>
+
+    <div class="info-group">
+      <label>Payment Method:</label>
+      <%= @order.payment_type %>
+    </div>
+  </div>
+
+  <table class="line-items-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @order.line_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td class="price"><%= number_to_currency(item.product.price) %></td>
+          <td class="quantity"><%= item.quantity %></td>
+          <td class="price"><%= number_to_currency(item.total_price) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="3">Total:</td>
+        <td class="price total"><%= number_to_currency(@order.total_price) %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="actions">
+    <%= link_to 'Back to Order List', orders_path, class: 'button' %>
+  </div>
+</div>
